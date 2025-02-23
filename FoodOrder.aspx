@@ -11,10 +11,7 @@
         .auto-style2 {
             height: 29px;
         }
-        .auto-style4 {
-            margin-left: 20px;
-        }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -45,7 +42,7 @@
                     <td>&nbsp;</td>
                     <td>
                         <asp:Button ID="btnOrder" runat="server" Text="Order" OnClick="btnOrder_Click" />
-                        <asp:Button ID="txtDelete" runat="server" CssClass="auto-style4" OnClick="txtDelete_Click" Text="update" />
+                        <asp:Button ID="btnupdate" runat="server" OnClick="btnupdate_Click" Text="update" />
                     </td>
                 </tr>
             </table>

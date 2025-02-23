@@ -48,7 +48,8 @@ namespace Food
             cmd.Parameters.AddWithValue("@Order_Date", txtDate.Text);
             con.Open();
             int a = Convert.ToInt16(cmd.ExecuteNonQuery());
-            if (a > 0) {
+            if (a > 0)
+            {
                 Response.Write("<script>alert('Order Placed Successfully');</script>");
             }
             else
@@ -66,10 +67,10 @@ namespace Food
                          "Tbl_FoodItems.FoodName, " +
                          "Tbl_FoodItems.Price, " +
                          "Tbl_Orders.Quantity, " +
-                         "(Tbl_FoodItems.Price * Tbl_Orders.Quantity) AS TotalPrice, " + 
+                         "(Tbl_FoodItems.Price * Tbl_Orders.Quantity) AS TotalPrice, " +
                          "Tbl_Orders.Order_Date " +
                          "FROM Tbl_Orders " +
-                         "INNER JOIN Tbl_FoodItems ON Tbl_Orders.Food_ID = Tbl_FoodItems.Food_ID"; 
+                         "INNER JOIN Tbl_FoodItems ON Tbl_Orders.Food_ID = Tbl_FoodItems.Food_ID";
 
             SqlDataAdapter sda = new SqlDataAdapter(qry, con);
             DataSet ds = new DataSet();
@@ -85,13 +86,30 @@ namespace Food
 
         protected void GVData_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             GridViewRow row = GVData.SelectedRow;
-            ViewState["Order_ID"] = row.Cells[1].Text;
+            ViewState["SelectedOrderID"] = row.Cells[1].Text;
+            ddlFood.SelectedItem.Text = row.Cells[2].Text;
             txtQuantity.Text = row.Cells[4].Text;
-            txtDate.Text = row.Cells[6].Text;
+            txtDate.Text = row.Cells[5].Text;
+
         }
 
-       
+        
+
+        protected void btnupdate_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(strcon); 
+            string query = "UPDATE Tbl_Orders SET Food_ID = @Food_ID, Quantity = @Quantity, Order_Date = @Order_Date WHERE Order_ID = @Order_ID"; // SQL update query
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@Food_ID", ddlFood.SelectedValue);
+            cmd.Parameters.AddWithValue("@Quantity", txtQuantity.Text);
+            cmd.Parameters.AddWithValue("@Order_Date", txtDate.Text);
+            cmd.Parameters.AddWithValue("@Order_ID", ViewState["SelectedOrderID"]);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            Response.Write("<script>alert('Order updated successfully')</script>"); 
+            BindGrid();
+        }
     }
-}
+    }
