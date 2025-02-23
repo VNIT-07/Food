@@ -43,6 +43,7 @@
                     <td>
                         <asp:Button ID="btnOrder" runat="server" Text="Order" OnClick="btnOrder_Click" />
                         <asp:Button ID="btnupdate" runat="server" OnClick="btnupdate_Click" Text="update" />
+                        <asp:Button ID="btndelete" runat="server" OnClick="btndelete_Click" Text="Delete" />
                     </td>
                 </tr>
             </table>

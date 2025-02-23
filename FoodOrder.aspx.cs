@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Windows.Forms;
 using System.Web.UI.WebControls;
 
 namespace Food
@@ -51,6 +52,7 @@ namespace Food
             if (a > 0)
             {
                 Response.Write("<script>alert('Order Placed Successfully');</script>");
+                MessageBox.Show("hello");
             }
             else
             {
@@ -111,5 +113,20 @@ namespace Food
             Response.Write("<script>alert('Order updated successfully')</script>"); 
             BindGrid();
         }
-    }
+
+        protected void btndelete_Click(object sender, EventArgs e)
+        {
+           
+                SqlConnection con = new SqlConnection(strcon); 
+                string query = "DELETE FROM Tbl_Orders WHERE Order_ID = @Order_ID"; 
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Order_id", ViewState["SelectedOrderID"]);
+                con.Open();
+                cmd.ExecuteNonQuery(); 
+                con.Close();
+                Response.Write("<script>alert('Order deleted successfully!')</script>"); // Show success message
+                BindGrid(); 
+
+            }
+        }
     }
