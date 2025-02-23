@@ -25,18 +25,20 @@ namespace Food
             SqlConnection con = new SqlConnection(strcon);
             string email = txtEmail.Text;
             string password = txtPassword.Text;
-            con.Open();
             string qry = "SELECT * FROM Tbl_login WHERE email=@email AND password=@password";
             SqlCommand cmd = new SqlCommand(qry, con);
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@password", password);
-            int log= Convert.ToInt16(cmd.ExecuteScalar());
+            con.Open();
+            int log = Convert.ToInt16(cmd.ExecuteScalar());
             con.Close();
+
 
             if(log!=0)
             { 
                 MessageBox.Show("login successfully");
                 Response.Redirect("FoodOrder.aspx");
+                //Session//
             }
             else
             {
