@@ -38,7 +38,7 @@ namespace Food
             { 
                 MessageBox.Show("login successfully");
                 Response.Redirect("FoodOrder.aspx");
-                //Session//
+                Session["a"] = txtEmail.Text;
             }
             else
             {

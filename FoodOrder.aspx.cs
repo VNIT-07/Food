@@ -20,6 +20,7 @@ namespace Food
             if (!IsPostBack)
             {
                 FoodBind();
+                Response.Write(Session["a"]);
             }
 
             BindGrid();
